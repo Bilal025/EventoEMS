@@ -3,21 +3,22 @@ import {Link} from "react-router-dom";
 export default function Header() {
   return (
     <div>
-       <header className='flex py-0.5 justify-between place-items-center'>
+       <header className='flex py-2 px-6 justify-between place-items-center'>
           
           <a href="#" className="flex item-center ">
             <img src="../src/assets/logo.png" alt="" className='w-26 h-9'/>
           </a>
   
           <div className='flex bg-white rounded py-2.5 px-4 w-1/3 gap-4 items-center shadow-md shadow-gray-200'>
-
+            
             <button>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
               </svg>
             </button>
-            <div className='text-sm text-gray-300 font-semibold'>Search</div>
-
+            <input type="text" placeholder="Search" className='text-sm text-black outline-none w-full'/>
+            {/* <div className='text-sm text-gray-300 font-semibold'>Search</div> */}
+      
           </div>
 
           <div className='flex flex-col place-items-center py-1 px-2 rounded text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
@@ -64,8 +65,8 @@ export default function Header() {
             </div>
           </div>
               
-        <Link to={'/login'} className='text-white bg-primary cursor-pointer ring-1 ring-primary rounded py-2 px-4 hover:bg-primarydark hover:shadow-lg hover:ring-primarydark hover:transition-shadow duration-1500 ' >
-            <button>
+        <Link to={'/login'}  >
+            <button className="primary">
               <div>Sign in / Sign up</div>
             </button>
         </Link>

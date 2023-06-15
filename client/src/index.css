@@ -9,18 +9,13 @@ body{
   font-family: Poppins;
 }
 
-.btn{
-  color: white;
-  background-color: black;
-  border: 1px solid rgba(0, 0, 0, 1);
-  border-radius: 5px;
-  padding: 8px 30px;
-  size: auto;
+button.primary{
+  @apply text-white py-2 px-4 bg-primary cursor-pointer ring-1 ring-primary rounded  hover:bg-primarydark hover:shadow-lg duration-75 hover:ring-primarydark;
 }
-.btn:hover{
-  color: black;
-  background-color: white;
-  outline: black;
-  transition: 0.15s;
-  box-shadow: rgba(0, 0, 0, 0.15) 0 4px 12px;
+
+div.input{
+  @apply flex bg-background rounded w-full py-2.5 px-4 gap-4 items-center ;
+}
+input.input-et{
+  @apply text-base bg-inherit text-black outline-none w-full;
 }
