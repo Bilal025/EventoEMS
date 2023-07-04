@@ -3,7 +3,22 @@ import { Link } from "react-router-dom";
 export default function RegisterPage() {
   return (
     
-    <div className ="flex w-full h-full px-10 py-5 justify-between place-items-center">
+    <div className ="flex w-full h-full -ml-24 px-10 py-10 justify-between place-items-center">
+      <div className= "flex flex-col right-box ">
+        <div className="flex flex-col gap-3">
+        <div className="text-3xl font-black">Welcome to</div>
+
+          <div>
+            <img src="../src/assets/logo.png" alt="" className="w-48"/>
+          </div>  
+        </div>
+       
+
+        <div className="ml-48 w-80 mt-6">
+        <img src="../src/assets/signuppic.svg" alt="" className='w-full'/>
+        </div>   
+      
+    </div>
       <div className= "bg-white w-1/3 px-7 py-7 rounded-xl ">
     
         <form className="flex flex-col w-auto items-center">
@@ -52,7 +67,9 @@ export default function RegisterPage() {
 
             <div className="container2">
               <div className="slider">
+                <Link to={'/Register'}>
                   <button type="submit" className="slider-signup-btn" > Sign Up</button>
+                </Link>
               </div>
               <Link to={'/login'}>
                 <div className="slider">
@@ -65,13 +82,7 @@ export default function RegisterPage() {
 
     </div>
 
-    <div className= "right-box">
-        <div className="imgs">
-        <img src='' alt="pic-welcome" className="sign-pic"/>
-        </div>   
-        
-      
-    </div>
+    
   </div>
   )
 }

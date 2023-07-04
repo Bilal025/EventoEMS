@@ -5,7 +5,7 @@ export default function Header() {
     <div>
        <header className='flex py-2 px-6 justify-between place-items-center'>
           
-          <a href="#" className="flex item-center ">
+          <a href="/" className="flex item-center ">
             <img src="../src/assets/logo.png" alt="" className='w-26 h-9'/>
           </a>
   
