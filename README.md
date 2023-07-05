@@ -5,4 +5,5 @@ Introducing our Event Management System, a solution developed as part of our fin
 **Skills:** *Figma · Ui/ux · React.js · MongoDB · Node.js · Express.js · Requirements Analysis · User Interface Design*
 
 
-![portfolio_1](https://github.com/Bilal025/ems/assets/95700674/2a2b1eeb-03da-44af-986e-3cb95343ac21)
+
+![portfolio_1](https://github.com/Bilal025/EventoEMS/assets/95700674/c8dd33dd-5f72-47d7-aa1f-2019913e2ee0)
