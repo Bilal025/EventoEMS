@@ -6,4 +6,5 @@ Introducing our Event Management System, a solution developed as part of our fin
 
 
 
-![portfolio_1](https://github.com/Bilal025/EventoEMS/assets/95700674/c8dd33dd-5f72-47d7-aa1f-2019913e2ee0)
+
+![portfolio_1](https://github.com/Bilal025/EventoEMS/assets/95700674/001ddf1c-72b3-40bb-8e3e-975ae00ccee5)
