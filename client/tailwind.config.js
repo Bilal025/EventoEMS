@@ -8,7 +8,7 @@ export default {
             'primary': '#006CE6',
             'secondary': '#D1D5D8',
             'primarydark': '#0054B3',
-            'primarylight':'#EEF6FF',
+            'primarylight':'#cae1fa',
          }
 
       },

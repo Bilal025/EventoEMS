@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cores": "^0.8.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.1",
+    "mongoos": "^0.0.1-security",
+    "mongoose": "^7.3.4"
+  }
+}

@@ -1,0 +1,1 @@
+Couchdb resources with validation. 
