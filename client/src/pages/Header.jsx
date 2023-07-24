@@ -1,19 +1,43 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import axios from 'axios'
 import {Link} from "react-router-dom";
 import { UserContext } from "../UserContext";
 import { RxExit } from 'react-icons/rx';
 import { BiDownArrow } from 'react-icons/bi';
 
 export default function Header() {
-  const {user} = useContext(UserContext);
+  const {user,setUser} = useContext(UserContext);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  async function logout(){
+    await axios.post('/logout');
+    setUser(null);
+  }
+
   return (
     <div>
-       <header className='flex py-2 px-6 justify-between place-items-center'>
+      <header className='flex py-2 px-6 justify-between place-items-center'>
           
-          <a href="/" className="flex item-center ">
+          <Link to={'/'} className="flex item-center ">
             <img src="../src/assets/logo.png" alt="" className='w-26 h-9'/>
-          </a>
+          </Link>
   
+          <div className="md:hidden">
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                <path fillRule="evenodd" d="M3 5.75C3 5.33579 3.33579 5 3.75 5H20.25C20.6642 5 21 5.33579 21 5.75C21 6.16421 20.6642 6.5 20.25 6.5H3.75C3.33579 6.5 3 6.16421 3 5.75ZM3 11.25C3 10.8358 3.33579 10.5 3.75 10.5H20.25C20.6642 10.5 21 10.8358 21 11.25C21 11.6642 20.6642 12 20.25 12H3.75C3.33579 12 3 11.6642 3 11.25ZM3 16.75C3 16.3358 3.33579 16 3.75 16H20.25C20.6642 16 21 16.3358 21 16.75C21 17.1642 20.6642 17.5 20.25 17.5H3.75C3.33579 17.5 3 17.1642 3 16.75Z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          <nav className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
+            <Link to={'/createEvent'} className='block py-2 px-4 text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
+              Create Event
+            </Link>
+            TODO:{/* Add other navigation links here */}
+          </nav>
+
           <div className='flex bg-white rounded py-2.5 px-4 w-1/3 gap-4 items-center shadow-md shadow-gray-200'>
             
             <button>
@@ -25,33 +49,38 @@ export default function Header() {
             {/* <div className='text-sm text-gray-300 font-semibold'>Search</div> */}
       
           </div> 
-
-          <div className='flex flex-col place-items-center py-1 px-2 rounded text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
-            <button>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 stroke-3 py-1">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-            </button>
-            <div className='font-bold color-primary text-sm'>Create Event</div>
-          </div>  
-
+          
+          <Link to={'/createEvent'}> {/*TODO:Route create event page after creating it */}
+            <div className='flex flex-col place-items-center py-1 px-2 rounded text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
+              <button>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 stroke-3 py-1">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </button>
+              <div className='font-bold color-primary text-sm'>Create Event</div>
+            </div>  
+          </Link>
 
           <div className='flex gap-5 text-sm'>
-
+          <Link to={'/wallet'}> {/*TODO:Route wallet page after creating it */}
             <div className='flex flex-col place-items-center py-1 px-3 rounded cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 py-1">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3" />
                 </svg>
                 <div>Wallet</div>
             </div >
+            </Link>
 
+            <Link to={'/verification'}> {/*TODO:Route verification center page after creating it */}
             <div className='flex flex-col place-items-center py-1 px-3 rounded cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 py-1">
                 <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm11.378-3.917c-.89-.777-2.366-.777-3.255 0a.75.75 0 01-.988-1.129c1.454-1.272 3.776-1.272 5.23 0 1.513 1.324 1.513 3.518 0 4.842a3.75 3.75 0 01-.837.552c-.676.328-1.028.774-1.028 1.152v.75a.75.75 0 01-1.5 0v-.75c0-1.279 1.06-2.107 1.875-2.502.182-.088.351-.199.503-.331.83-.727.83-1.857 0-2.584zM12 18a.75.75 0 100-1.5.75.75 0 000 1.5z" clipRule="evenodd" />
               </svg>
               <div>Center</div>
             </div>
+            </Link>
 
+            <Link to={'/calendar'}> {/*TODO:Route calendar page after creating it */}
             <div className='flex flex-col place-items-center py-1 px-3 rounded cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 py-1">
                 <path d="M12.75 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM7.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM8.25 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM9.75 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM10.5 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM12.75 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM14.25 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 13.5a.75.75 0 100-1.5.75.75 0 000 1.5z" />
@@ -59,7 +88,9 @@ export default function Header() {
               </svg>
               <div>Calendar</div>
             </div>
+            </Link>
           </div>
+          
 
           <div>
             <div className='flex flex-col place-items-center py-1 px-3 rounded cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
@@ -74,21 +105,24 @@ export default function Header() {
           
           <div className="flex flex-row items-center gap-8">
             <div className="flex items-center gap-2">
-               {user.name}
-               <BiDownArrow className="cursor-pointer"/>
+              <Link to={'/useraccount'}>  {/*TODO: Route user profile page after creating it -> 1.50*/} 
+                {user.name.toUpperCase()}
+              </Link>
+              
+              <BiDownArrow className="cursor-pointer"/>
             </div>
-            <Link to={'/login'}  >
-              <button className="flex items-center gap-2 text-primary py-2 px-4 bg-primarylight cursor-pointer ring-1 ring-primarylight rounded  hover:bg-primarydark hover:shadow-lg duration-75 hover:ring-primarydark hover:text-white">
-                <div>Log out</div>
-                <RxExit/>
-              </button>
-            </Link>
+
+            <button onClick={logout} className="secondary">
+              <div>Log out</div>
+              <RxExit/>
+            </button>
+            
           </div>
         )}
 
         {!user &&(
           <Link to={'/login'}  >
-            <button className="text-white py-2 px-4 bg-primary cursor-pointer ring-1 ring-primary rounded  hover:bg-primarylight hover:shadow-lg duration-75 hover:ring-primarydark hover:text-primary">
+            <button className="primary">
               <div>Sign in / Sign up</div>
             </button>
           </Link>
@@ -98,5 +132,3 @@ export default function Header() {
     </div>
   )
 }
-
-//!--> 01.35.54

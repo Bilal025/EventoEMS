@@ -10,9 +10,11 @@ body{
 }
 
 button.primary{
-  @apply text-white py-2 px-4 bg-primary cursor-pointer ring-1 ring-primary rounded  hover:bg-primarydark hover:shadow-lg duration-75 hover:ring-primarydark;
+  @apply text-white py-2 px-4 bg-primary cursor-pointer ring-1 ring-primary rounded font-bold hover:bg-white hover:shadow-lg duration-75 hover:ring-primarydark hover:text-primary;
 }
-
+button.secondary{
+  @apply flex items-center gap-2 text-primary py-2 px-4 bg-primarylight cursor-pointer ring-1 font-bold ring-primarylight rounded  hover:bg-primarydark hover:shadow-lg duration-75 hover:ring-primarydark hover:text-white;
+}
 div.input{
   @apply flex bg-background rounded w-full py-2.5 px-4 gap-4 items-center ;
 }
