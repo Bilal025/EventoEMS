@@ -10,6 +10,8 @@ import { UserContextProvider } from './UserContext'
 import UserAccountPage from './pages/UserAccountPage'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import AddEvent from './pages/AddEvent'
+import EventPage from './pages/EventPage'
 
 axios.defaults.baseURL = 'http://localhost:4000/';
 axios.defaults.withCredentials=true;
@@ -22,13 +24,15 @@ function App() {
       <Route path='/' element={<Layout />}>
         <Route index element = {<IndexPage />} />
         <Route path='/useraccount' element = {<UserAccountPage />}/>
-
+        <Route path='/createEvent' element = {<AddEvent/>} />
+        <Route path='/event/:id' element= {<EventPage/>} />
       </Route>
 
       <Route path='/register' element={<RegisterPage />}/>
       <Route path='/login' element={<LoginPage />}/>
       <Route path='/forgotpassword' element = {<ForgotPassword/>} />
       <Route path='/resetpassword' element = {<ResetPassword/>} />
+      
     
     </Routes>
     </UserContextProvider>  

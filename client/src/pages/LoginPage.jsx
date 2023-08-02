@@ -50,8 +50,8 @@ export default function LoginPage() {
   }
   
   return (
-    <div className ="flex w-full h-full ml-24 px-10 py-10 justify-between place-items-center mt-20">
-      <div className= "bg-white w-1/3 px-7 py-7 rounded-xl">
+    <div className ="flex w-full h-full lg:ml-24 px-10 py-10 justify-between place-items-center mt-20">
+      <div className= "bg-white w-full sm:w-full md:w-1/2 lg:w-1/3 px-7 py-7 rounded-xl justify-center align-middle">
     
         <form className="flex flex-col w-auto items-center" onSubmit={loginUser}>
             <h1 className='px-3 font-extrabold mb-5 text-primarydark text-2xl '>Sign In</h1>
@@ -133,7 +133,7 @@ export default function LoginPage() {
 
     </div>
    
-    <div className= "flex flex-col right-box">
+    <div className= "hidden lg:flex flex-col right-box">
       <div className='flex flex-col -ml-96 gap-3'>
         <div className='text-3xl font-black'>Welcome to</div>
         <div>

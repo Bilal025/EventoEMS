@@ -16,28 +16,11 @@ export default function Header() {
 
   return (
     <div>
-      <header className='flex py-2 px-6 justify-between place-items-center'>
+      <header className='flex py-2 px-2 sm:px-6 justify-between place-items-center'>
           
           <Link to={'/'} className="flex item-center ">
             <img src="../src/assets/logo.png" alt="" className='w-26 h-9'/>
           </Link>
-  
-          <div className="md:hidden">
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                <path fillRule="evenodd" d="M3 5.75C3 5.33579 3.33579 5 3.75 5H20.25C20.6642 5 21 5.33579 21 5.75C21 6.16421 20.6642 6.5 20.25 6.5H3.75C3.33579 6.5 3 6.16421 3 5.75ZM3 11.25C3 10.8358 3.33579 10.5 3.75 10.5H20.25C20.6642 10.5 21 10.8358 21 11.25C21 11.6642 20.6642 12 20.25 12H3.75C3.33579 12 3 11.6642 3 11.25ZM3 16.75C3 16.3358 3.33579 16 3.75 16H20.25C20.6642 16 21 16.3358 21 16.75C21 17.1642 20.6642 17.5 20.25 17.5H3.75C3.33579 17.5 3 17.1642 3 16.75Z" clipRule="evenodd" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          <nav className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
-            <Link to={'/createEvent'} className='block py-2 px-4 text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
-              Create Event
-            </Link>
-            TODO:{/* Add other navigation links here */}
-          </nav>
-
           <div className='flex bg-white rounded py-2.5 px-4 w-1/3 gap-4 items-center shadow-md shadow-gray-200'>
             
             <button>
@@ -51,7 +34,7 @@ export default function Header() {
           </div> 
           
           <Link to={'/createEvent'}> {/*TODO:Route create event page after creating it */}
-            <div className='flex flex-col place-items-center py-1 px-2 rounded text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
+            <div className='hidden md:flex flex-col place-items-center py-1 px-2 rounded text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
               <button>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 stroke-3 py-1">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -61,7 +44,7 @@ export default function Header() {
             </div>  
           </Link>
 
-          <div className='flex gap-5 text-sm'>
+          <div className='hidden lg:flex gap-5 text-sm'>
           <Link to={'/wallet'}> {/*TODO:Route wallet page after creating it */}
             <div className='flex flex-col place-items-center py-1 px-3 rounded cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 py-1">
@@ -103,32 +86,66 @@ export default function Header() {
               
         {!!user &&(
           
-          <div className="flex flex-row items-center gap-8">
+          <div className="flex flex-row items-center gap-2 sm:gap-8 ">
             <div className="flex items-center gap-2">
               <Link to={'/useraccount'}>  {/*TODO: Route user profile page after creating it -> 1.50*/} 
                 {user.name.toUpperCase()}
               </Link>
               
-              <BiDownArrow className="cursor-pointer"/>
+              <BiDownArrow className="cursor-pointer" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}/>
             </div>
-
-            <button onClick={logout} className="secondary">
-              <div>Log out</div>
-              <RxExit/>
-            </button>
-            
+            <div className="hidden md:flex">
+              <button onClick={logout} className="secondary">
+                <div>Log out</div>
+                <RxExit/>
+              </button>
+            </div>
           </div>
+          
         )}
 
         {!user &&(
-          <Link to={'/login'}  >
-            <button className="primary">
-              <div>Sign in / Sign up</div>
-            </button>
-          </Link>
+          <div>
+            
+            <Link to={'/login'} className=" ">
+              <button className="primary">
+                <div>Sign in </div>
+              </button>
+            </Link>
+          </div>
         )}
           
+
+          {!!user &&(
+            <div className=""> 
+            {/* TODO: */}
+              <nav className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} flex flex-col`}>
+                <Link to={'/createEvent'} >
+                  Create Event
+                </Link>
+                
+                <Link to={'/wallet'}>
+                  <div>Wallet</div>
+                </Link>
+                
+                <Link to={'/verification'}>
+                  <div>Center</div>
+                </Link>
+
+                <Link to={'/calendar'}>
+                  <div>Calendar</div>
+                </Link>
+
+                <Link onClick={logout}>
+                  Log out
+                </Link>
+              </nav>
+            </div>
+        )}
+
+        
         </header>
+          
     </div>
   )
 }
