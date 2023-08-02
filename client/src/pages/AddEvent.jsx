@@ -12,6 +12,7 @@ export default function AddEvent() {
     location: "",
     ticketPrice: 0,
     image: null,
+    likes: 0
   });
 
   const handleChange = (e) => {

@@ -3,10 +3,11 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import { BsArrowRightShort } from "react-icons/bs";
-import {  BiLike } from "react-icons/bi";
+import { BiComment, BiLike } from "react-icons/bi";
   export default function IndexPage() {
     const [events, setEvents] = useState([]);
- 
+    const [showCommentBox, setShowCommentBox] = useState(false);
+    const [commentText, setCommentText] = useState("");
 
     useEffect(() => {
       // Fetch events from the server
@@ -36,6 +37,7 @@ import {  BiLike } from "react-icons/bi";
           console.error("Error liking the event:", error);
         });
     };
+  
 
     return (
       <>
@@ -57,9 +59,9 @@ import {  BiLike } from "react-icons/bi";
               </div>
 
                 <div className="absolute flex gap-4 bottom-[215px] right-6 md:bottom-[215px] md:right-3 sm:bottom-[215px] sm:right-3">
-                  <button onClick={() => handleLike(event._id)}>
-                    <BiLike className="w-auto h-12 lg:h-10 sm:h-12 md:h-10 bg-white p-2 rounded-full shadow-md transition-all hover:text-primary" />
-                  </button>
+                <button onClick={() => handleLike(event._id)}>
+                  <BiLike className="w-auto h-12 lg:h-10 sm:h-12 md:h-10 bg-white p-2 rounded-full shadow-md transition-all hover:text-primary" />
+                </button>
               
                 </div>
 
@@ -86,7 +88,7 @@ import {  BiLike } from "react-icons/bi";
                 </Link>
                 
               </div>
-            
+
             </div> 
           ))}
         </div>

@@ -191,6 +191,18 @@ app.post("/event/:eventId", (req, res) => {
       });
 });
 
+app.get("/events", (req, res) => {
+   Event.find()
+     .then((events) => {
+       res.json(events);
+     })
+     .catch((error) => {
+       console.error("Error fetching events:", error);
+       res.status(500).json({ message: "Server error" });
+     });
+ });
+
+ 
 app.listen(4000);
 
 //45ymnGKgjxOwO9EJ

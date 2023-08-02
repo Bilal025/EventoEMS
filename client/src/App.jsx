@@ -12,6 +12,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import AddEvent from './pages/AddEvent'
 import EventPage from './pages/EventPage'
+import CalendarView from './pages/CalendarView'
 
 axios.defaults.baseURL = 'http://localhost:4000/';
 axios.defaults.withCredentials=true;
@@ -26,6 +27,7 @@ function App() {
         <Route path='/useraccount' element = {<UserAccountPage />}/>
         <Route path='/createEvent' element = {<AddEvent/>} />
         <Route path='/event/:id' element= {<EventPage/>} />
+        <Route path='/calendar' element={<CalendarView />} />
       </Route>
 
       <Route path='/register' element={<RegisterPage />}/>
