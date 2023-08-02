@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
 import { AiFillCalendar } from "react-icons/ai";
@@ -20,6 +21,25 @@ export default function EventPage() {
     });
   }, [id])
 
+  const handleCopyLink = () => {
+    const linkToShare = window.location.href;
+    navigator.clipboard.writeText(linkToShare).then(() => {
+      alert('Link copied to clipboard!');
+    });
+  };
+
+  const handleWhatsAppShare = () => {
+    const linkToShare = window.location.href;
+    const whatsappMessage = encodeURIComponent(`${linkToShare}`);
+    window.open(`whatsapp://send?text=${whatsappMessage}`);
+  };
+
+  const handleFacebookShare = () => {
+    const linkToShare = window.location.href;
+    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(linkToShare)}`;
+    window.open(facebookShareUrl);
+  };
+  
 if (!event) return '';
   return (
     <div className="flex flex-col mx-5 xl:mx-32 md:mx-10 mt-5 flex-grow">
@@ -39,9 +59,9 @@ if (!event) return '';
           </Link>
       </div>
       <div className="mx-2">
-          <h2 className="text-md md:text-xl font-bold mt-3 text-primarydark">LKR. {event.ticketPrice}</h2>
+          <h2 className="text-md md:text-xl font-bold mt-3 text-primarydark">{event.ticketPrice === 0? 'Free' : 'LKR. '+ event.ticketPrice}</h2>
       </div>
-      <div className="mx-2 mt-5 text-md md:text-lg">
+      <div className="mx-2 mt-5 text-md md:text-lg truncate-3-lines">
         {event.description}
       </div>
       <div className="mx-2 mt-5 text-md md:text-xl font-bold text-primarydark">
@@ -80,17 +100,17 @@ if (!event) return '';
       <div className="mx-2 mt-5 text-md md:text-xl font-extrabold">
         Share with friends
         <div className="mt-10 flex gap-5 mx-10 md:mx-32 ">
-          <Link to=''>
-            <FaCopy className="w-auto h-6 "/> 
-          </Link>
+        <button onClick={handleCopyLink}>
+            <FaCopy className="w-auto h-6" />
+          </button>
 
-          <Link to=''>
-            <FaWhatsappSquare className="w-auto h-6"/>
-          </Link>
+          <button onClick={handleWhatsAppShare}>
+            <FaWhatsappSquare className="w-auto h-6" />
+          </button>
 
-          <Link to=''>
-            <FaFacebook className="w-auto h-6"/>
-          </Link>
+          <button onClick={handleFacebookShare}>
+            <FaFacebook className="w-auto h-6" />
+          </button>
 
         </div>
       </div>

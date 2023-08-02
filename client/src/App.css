@@ -480,7 +480,10 @@ transition: all 0.2s ease-in-out;
   justify-content: space-between;
 }
 
-nav{
-  display: flex;
-  
+.truncate-3-lines {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* Number of lines to show */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

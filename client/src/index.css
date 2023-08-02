@@ -21,3 +21,11 @@ div.input{
 input.input-et{
   @apply text-base bg-inherit text-black outline-none w-full;
 }
+
+.truncate-text {
+  display: -webkit-box;
+  -webkit-line-clamp:3 ; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -94,57 +94,102 @@ app.post("/logout", (req, res) => {
 
 //!=======================  GET FROM DATABASE  =============================================
 //!DEMO FOR DEVELOPMENT PURPOSE------------------------
-const multer = require('multer');
+const multer = require("multer");
 const eventSchema = new mongoose.Schema({
-  owner: String,
-  title: String,
-  description: String,
-  organizedBy: String,
-  eventDate: Date,
-  eventTime: String,
-  location: String,
-  ticketPrice: Number,
-  image: String,
+   owner: String,
+   title: String,
+   description: String,
+   organizedBy: String,
+   eventDate: Date,
+   eventTime: String,
+   location: String,
+   ticketPrice: Number,
+   image: String,
+   likes: Number,
+   Comment: [String],
 });
 
-const Event = mongoose.model('Event', eventSchema);
+const Event = mongoose.model("Event", eventSchema);
 
 // Configure multer to handle file uploads
-const upload = multer({ dest: './uploads' });
+const upload = multer({ dest: "./uploads" });
 
 // API endpoint to create an event
-app.post('/createEvent', upload.single('image'), async (req, res) => {
-  try {
-    const eventData = req.body;
-    eventData.image = req.file ? req.file.path : '';
-    const newEvent = new Event(eventData);
-    await newEvent.save();
-    res.status(201).json(newEvent);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to save the event to MongoDB' });
-  }
+app.post("/createEvent", upload.single("image"), async (req, res) => {
+   try {
+      const eventData = req.body;
+      eventData.image = req.file ? req.file.path : "";
+      const newEvent = new Event(eventData);
+      await newEvent.save();
+      res.status(201).json(newEvent);
+   } catch (error) {
+      res.status(500).json({ error: "Failed to save the event to MongoDB" });
+   }
 });
 
 // API endpoint to fetch all events
-app.get('/createEvent', async (req, res) => {
-  try {
-    const events = await Event.find();
-    res.status(200).json(events);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch events from MongoDB' });
-  }
+app.get("/createEvent", async (req, res) => {
+   try {
+      const events = await Event.find();
+      res.status(200).json(events);
+   } catch (error) {
+      res.status(500).json({ error: "Failed to fetch events from MongoDB" });
+   }
 });
 
-
-app.get('/event/:id', async (req, res) => {
+app.get("/event/:id", async (req, res) => {
    const { id } = req.params;
    try {
-     const event = await Event.findById(id);
-     res.json(event);
+      const event = await Event.findById(id);
+      res.json(event);
    } catch (error) {
-     res.status(500).json({ error: 'Failed to fetch event from MongoDB' });
+      res.status(500).json({ error: "Failed to fetch event from MongoDB" });
    }
- });
+});
+
+app.post("/event/:eventId", (req, res) => {
+   const eventId = req.params.eventId;
+
+   Event.findById(eventId)
+      .then((event) => {
+         if (!event) {
+            return res.status(404).json({ message: "Event not found" });
+         }
+
+         event.likes += 1;
+         return event.save();
+      })
+      .then((updatedEvent) => {
+         res.json(updatedEvent);
+      })
+      .catch((error) => {
+         console.error("Error liking the event:", error);
+         res.status(500).json({ message: "Server error" });
+      });
+});
+
+// Add a comment to an event
+app.post("/event/:eventId", (req, res) => {
+   const eventId = req.params.eventId;
+   const comment = req.body.comment;
+
+   Event.findById(eventId)
+      .then((event) => {
+         if (!event) {
+            return res.status(404).json({ message: "Event not found" });
+         }
+
+         event.comments.push(comment);
+         return event.save();
+      })
+      .then((updatedEvent) => {
+         res.json(updatedEvent);
+      })
+      .catch((error) => {
+         console.error("Error adding comment:", error);
+         res.status(500).json({ message: "Server error" });
+      });
+});
 
 app.listen(4000);
 
