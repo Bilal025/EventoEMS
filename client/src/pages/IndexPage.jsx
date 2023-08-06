@@ -3,11 +3,10 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import { BsArrowRightShort } from "react-icons/bs";
-import { BiComment, BiLike } from "react-icons/bi";
+import { BiLike } from "react-icons/bi";
   export default function IndexPage() {
     const [events, setEvents] = useState([]);
-    const [showCommentBox, setShowCommentBox] = useState(false);
-    const [commentText, setCommentText] = useState("");
+
 
     useEffect(() => {
       // Fetch events from the server
@@ -75,7 +74,7 @@ import { BiComment, BiLike } from "react-icons/bi";
                 </div>
                 
 
-                <div className="flex text-xs flex-nowrap justify-between text-primarydark text-md font-bold mr-4">
+                <div className="flex text-sm flex-nowrap justify-between text-primarydark font-bold mr-4">
                   <div>{event.eventDate.split("T")[0]}, {event.eventTime}</div>
                   <div>{event.ticketPrice === 0? 'Free' : 'Rs.'+ event.ticketPrice}</div>
                 </div>

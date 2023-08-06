@@ -30,7 +30,7 @@ export default function AddEvent() {
       .post("/createEvent", formData)
       .then((response) => {
         console.log("Event posted successfully:", response.data);
-        // Optionally, you can do something with the response data here
+        
       })
       .catch((error) => {
         console.error("Error posting event:", error);

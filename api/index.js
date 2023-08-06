@@ -95,6 +95,7 @@ app.post("/logout", (req, res) => {
 //!=======================  GET FROM DATABASE  =============================================
 //!DEMO FOR DEVELOPMENT PURPOSE------------------------
 const multer = require("multer");
+
 const eventSchema = new mongoose.Schema({
    owner: String,
    title: String,
@@ -137,6 +138,7 @@ app.get("/createEvent", async (req, res) => {
    }
 });
 
+// API endpoint to fetch event by id
 app.get("/event/:id", async (req, res) => {
    const { id } = req.params;
    try {
@@ -147,6 +149,7 @@ app.get("/event/:id", async (req, res) => {
    }
 });
 
+// API endpoint to adding and fetch likes 
 app.post("/event/:eventId", (req, res) => {
    const eventId = req.params.eventId;
 
@@ -191,6 +194,7 @@ app.post("/event/:eventId", (req, res) => {
       });
 });
 
+// API endpoint to fetch event by id to clendar
 app.get("/events", (req, res) => {
    Event.find()
      .then((events) => {
