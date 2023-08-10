@@ -28,7 +28,7 @@ export default function CalendarView() {
   return (
     <div className="p-4 md:mx-16">
       <div className=" rounded p-2">
-        <div className="flex items-center  mb-4 justify-center gap-6 ">
+        <div className="flex items-center mb-4 justify-center gap-6 ">
           <button className="primary" onClick={() => setCurrentMonth((prevMonth) => addMonths(prevMonth, -1))}>
             <BsCaretLeftFill className="w-auto h-5" />
           </button>
@@ -44,15 +44,15 @@ export default function CalendarView() {
         </div>
         <div className="grid grid-cols-7">
           {daysInMonth.map((date) => (
-            <div key={date.toISOString()} className="p-2 relative top-0 pb-10 sm:pb-24 ring-4 bg-white ring-background flex flex-col items-start justify-start">
+            <div key={date.toISOString()} className="p-2 relative top-0 pb-20 sm:pb-24 ring-4 bg-white ring-background flex flex-col items-start justify-start">
               <div className="font-bold">{format(date, "dd")}</div>
               <div className="absolute top-8">
                 {events
                   .filter((event) => format(new Date(event.eventDate), "yyyy-MM-dd") === format(date, "yyyy-MM-dd"))
                   .map((event) => (
-                    <div key={event._id} className="mt-2 flex">
+                    <div key={event._id} className="mt-0 flex md:mt-2">
                       <Link to={"/event/" + event._id}>
-                        <div className="text-white bg-primary rounded p-2 font-bold">{event.title.toUpperCase()}</div>
+                        <div className="text-white bg-primary rounded p-1 font-bold text-xs md:text-base md:p-2">{event.title.toUpperCase()}</div>
                       </Link>
                       
                     </div>

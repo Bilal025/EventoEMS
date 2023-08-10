@@ -120,7 +120,7 @@ const Event = mongoose.model("Event", eventSchema);
 
 
 //! API endpoint to create an event (This is for checking purpose) -----------------------------------------
-app.post("/createEvent", upload.single("image"), async (req, res) => {
+app.post("/createEvent", async (req, res) => {
    try {
       const eventData = req.body;
       eventData.image = req.file ? req.file.path : "";
