@@ -12,6 +12,8 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false);
   const {setUser} = useContext(UserContext);
 
+
+  //! Fetch users from the server --------------------------------------------------------------
   useEffect(() => {
     const storedEmail = localStorage.getItem('rememberedEmail');
     const storedPass = localStorage.getItem('rememberedpass')

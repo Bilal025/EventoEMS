@@ -13,8 +13,9 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const searchInputRef = useRef();
 
+  //! Fetch events from the server -------------------------------------------------
   useEffect(() => {
-    // Fetch events from the server
+    
     axios.get("/events").then((response) => {
       setEvents(response.data);
     }).catch((error) => {
@@ -22,11 +23,12 @@ export default function Header() {
     });
   }, []);
 
+
+  //! Search bar functionality----------------------------------------------------
   useEffect(() => {
     const handleDocumentClick = (event) => {
       // Check if the clicked element is the search input or its descendant
       if (searchInputRef.current && !searchInputRef.current.contains(event.target)) {
-        // If clicked outside the search input, close the filter
         setSearchQuery("");
       }
     };
@@ -34,16 +36,17 @@ export default function Header() {
     // Listen for click events on the entire document
     document.addEventListener("click", handleDocumentClick);
 
-    // Clean up the event listener on component unmount
     return () => {
       document.removeEventListener("click", handleDocumentClick);
     };
   }, []); 
   
+  //! Logout Function --------------------------------------------------------
   async function logout(){
     await axios.post('/logout');
     setUser(null);
   }
+//! Search input ----------------------------------------------------------------
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -67,7 +70,8 @@ export default function Header() {
             </div>
             {/* <div className='text-sm text-gray-300 font-semibold'>Search</div> */}      
           </div> 
-          
+
+          {/*------------------------- Search Functionality -------------------  */}
           {searchQuery && (
           <div className="p-2 w-1/3 z-10 absolute rounded left-[25%] top-14 md:w-1/4 md:left-[16.5%] md:top-16 lg:w-[550px] lg:left-[11%] lg:top-16 bg-white">
             {/* Filter events based on the search query */}
@@ -137,7 +141,8 @@ export default function Header() {
           
             </div>
           </div>
-              
+
+        {/* -------------------IF user is Logged DO this Main-------------------- */}
         {!!user &&(
           
           <div className="flex flex-row items-center gap-2 sm:gap-8 ">
@@ -154,10 +159,10 @@ export default function Header() {
                 <RxExit/>
               </button>
             </div>
-          </div>
-          
+          </div>  
         )}
 
+        {/* -------------------IF user is not Logged in DO this MAIN AND MOBILE-------------------- */}
         {!user &&(
           <div>
             
@@ -169,7 +174,7 @@ export default function Header() {
           </div>
         )}
           
-
+          {/* -------------------IF user is Logged DO this Mobile -------------------- */}
           {!!user &&(
             <div className=""> 
             {/* TODO: */}

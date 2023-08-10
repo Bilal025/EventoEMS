@@ -11,9 +11,10 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
-const bcryptSalt = bcrypt.genSaltSync(10);
-const jwtSecret = "bsbsfbrnsftentwnnwnwn";
+const bcryptSalt = bcrypt.genSaltSync(10); //! To encriypt the password text ---
+const jwtSecret = "bsbsfbrnsftentwnnwnwn"; //! JWT token secret code for encryption ---
 
+//! Making a connection with backend and frontend (in my pc Backend runnig in PORT 4000 Frontend running in PORT 5173 )
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -23,12 +24,14 @@ app.use(
    })
 );
 
-mongoose.connect(process.env.MONGO_URL);
+mongoose.connect(process.env.MONGO_URL); //! Setting up the connection to mongoDB URL in .env file ---
 
+//! Checking whether API is working --------------------------------------------------------
 app.get("/test", (req, res) => {
    res.json("test ok");
 });
 
+//! Register page API endpoint -------------------------------------------------------------
 app.post("/register", async (req, res) => {
    const { name, email, password } = req.body;
 
@@ -44,6 +47,7 @@ app.post("/register", async (req, res) => {
    }
 });
 
+//! Login API endpoint checking whether database have the entered user profile ------------------------
 app.post("/login", async (req, res) => {
    const { email, password } = req.body;
 
@@ -58,7 +62,7 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid password" });
    }
 
-   // User verified, create and send JWT token
+   //! User verified, create and send JWT token ----------------------------------------------------
    jwt.sign(
       {
          email: userDoc.email,
@@ -75,6 +79,7 @@ app.post("/login", async (req, res) => {
    );
 });
 
+//! API endpoint for User profile (This is for check purposes)-----------------------------------------------
 app.get("/profile", (req, res) => {
    const { token } = req.cookies;
    if (token) {
@@ -88,13 +93,14 @@ app.get("/profile", (req, res) => {
    }
 });
 
+//! Logout Functionality --------------------------------------------------------------------------
 app.post("/logout", (req, res) => {
    res.cookie("token", "").json(true);
 });
 
 //!=======================  GET FROM DATABASE  =============================================
 //!DEMO FOR DEVELOPMENT PURPOSE------------------------
-const multer = require("multer");
+
 
 const eventSchema = new mongoose.Schema({
    owner: String,
@@ -112,10 +118,8 @@ const eventSchema = new mongoose.Schema({
 
 const Event = mongoose.model("Event", eventSchema);
 
-// Configure multer to handle file uploads
-const upload = multer({ dest: "./uploads" });
 
-// API endpoint to create an event
+//! API endpoint to create an event (This is for checking purpose) -----------------------------------------
 app.post("/createEvent", upload.single("image"), async (req, res) => {
    try {
       const eventData = req.body;
@@ -128,7 +132,7 @@ app.post("/createEvent", upload.single("image"), async (req, res) => {
    }
 });
 
-// API endpoint to fetch all events
+//! API endpoint to fetch all events for index page ----------------------------------------------------
 app.get("/createEvent", async (req, res) => {
    try {
       const events = await Event.find();
@@ -138,7 +142,7 @@ app.get("/createEvent", async (req, res) => {
    }
 });
 
-// API endpoint to fetch event by id
+//! API endpoint to fetch event by id for Event page ---------------------------------------
 app.get("/event/:id", async (req, res) => {
    const { id } = req.params;
    try {
@@ -149,7 +153,7 @@ app.get("/event/:id", async (req, res) => {
    }
 });
 
-// API endpoint to adding and fetch likes 
+//! API endpoint to adding and fetch likes ---------------------------------------------------
 app.post("/event/:eventId", (req, res) => {
    const eventId = req.params.eventId;
 
@@ -171,7 +175,7 @@ app.post("/event/:eventId", (req, res) => {
       });
 });
 
-// Add a comment to an event
+//! Add a comment to an event (NOT IN USE) ------------------------------------------ 
 app.post("/event/:eventId", (req, res) => {
    const eventId = req.params.eventId;
    const comment = req.body.comment;
@@ -181,7 +185,6 @@ app.post("/event/:eventId", (req, res) => {
          if (!event) {
             return res.status(404).json({ message: "Event not found" });
          }
-
          event.comments.push(comment);
          return event.save();
       })
@@ -194,7 +197,7 @@ app.post("/event/:eventId", (req, res) => {
       });
 });
 
-// API endpoint to fetch event by id to clendar
+//! API endpoint to fetch event by id to calendar ------------------------------------------------------
 app.get("/events", (req, res) => {
    Event.find()
      .then((events) => {
@@ -207,6 +210,6 @@ app.get("/events", (req, res) => {
  });
 
  
-app.listen(4000);
+app.listen(4000); //! the API listning point ---
 
-//45ymnGKgjxOwO9EJ
+

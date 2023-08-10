@@ -7,9 +7,9 @@ import { BiLike } from "react-icons/bi";
   export default function IndexPage() {
     const [events, setEvents] = useState([]);
 
-
+   //! Fetch events from the server ---------------------------------------------------------------
     useEffect(() => {
-      // Fetch events from the server
+      
       axios
         .get("/createEvent")
         .then((response) => {
@@ -19,7 +19,8 @@ import { BiLike } from "react-icons/bi";
           console.error("Error fetching events:", error);
         });
     }, []);
-
+    
+  //! Like Functionality --------------------------------------------------------------
     const handleLike = (eventId) => {
       axios
         .post(`/event/${eventId}`)
@@ -64,7 +65,7 @@ import { BiLike } from "react-icons/bi";
               
                 </div>
 
-              <img src="../src/assets/paduru.png" alt="" className='rounded-tl-[0.75rem] rounded-tr-[0.75rem] rounded-br-[0] rounded-bl-[0] object-fill aspect-16:9'/> 
+                <img src="../src/assets/paduru.png" alt="" className='rounded-tl-[0.75rem] rounded-tr-[0.75rem] rounded-br-[0] rounded-bl-[0] object-fill aspect-16:9'/> 
               {/* FIXME: This is a demo image after completing the create event function delete this */}
 
               <div className="m-2 grid gap-2">

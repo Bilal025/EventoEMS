@@ -9,9 +9,10 @@ import { Link } from "react-router-dom";
 export default function CalendarView() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [events, setEvents] = useState([]);
-
+  
+//! Fetch events from the server -------------------------------------------------------
   useEffect(() => {
-    // Fetch events from the server
+    
     axios.get("/events").then((response) => {
       setEvents(response.data);
     }).catch((error) => {
