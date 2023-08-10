@@ -180,24 +180,24 @@ export default function Header() {
             <div className="absolute z-10 mt-64 flex flex-col w-48 bg-white right-2 md:right-[160px] rounded-lg shadow-lg"> 
             {/* TODO: */}
               <nav className={`block ${isMenuOpen ? 'block' : 'hidden'} `}>
-                <div className="flex flex-col font-semibold ">
-                <Link className="flex hover:bg-slate-200 py-2 pt-3 pl-6 pr-8 rounded-lg" to={'/createEvent'} >
+                <div className="flex flex-col font-semibold text-[16px]">
+                <Link className="flex hover:bg-background hover:shadow py-2 pt-3 pl-6 pr-8 rounded-lg" to={'/createEvent'} >
                   Create Event
                 </Link>
                 
-                <Link className="flex hover:bg-slate-200 py-2 pl-6 pr-8 rounded-lg" to={'/wallet'}>
+                <Link className="flex hover:bg-background hover:shadow py-2 pl-6 pr-8 rounded-lg" to={'/wallet'}>
                   <div>Wallet</div>
                 </Link>
                 
-                <Link className="flex hover:bg-slate-200 py-2 pl-6 pr-8 rounded-lg" to={'/verification'}>
+                <Link className="flex hover:bg-background hover:shadow py-2 pl-6 pr-8 rounded-lg" to={'/verification'}>
                   <div>Center</div>
                 </Link>
 
-                <Link className="flex hover:bg-slate-200 py-2 pl-6 pr-8 rounded-lg" to={'/calendar'}>
+                <Link className="flex hover:bg-background hover:shadow py-2 pl-6 pr-8 rounded-lg" to={'/calendar'}>
                   <div>Calendar</div>
                 </Link>
 
-                <Link className="flex hover:bg-slate-200 py-2 pl-6 pb-3 pr-8 rounded-lg" onClick={logout}>
+                <Link className="flex hover:bg-background hover:shadow py-2 pl-6 pb-3 pr-8 rounded-lg" onClick={logout}>
                   Log out
                 </Link>
                 </div>
