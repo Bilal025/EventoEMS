@@ -98,7 +98,7 @@ app.post("/logout", (req, res) => {
    res.cookie("token", "").json(true);
 });
 
-//!=======================  GET FROM DATABASE  =============================================
+//!=======================  GET FROM DATABASE  ===========================================
 //!DEMO FOR DEVELOPMENT PURPOSE------------------------
 
 
