@@ -56,7 +56,7 @@ if (!event) return '';
 
       <div className="flex justify-between mt-8 mx-2">
           <h1 className="text-3xl md:text-5xl font-extrabold">{event.title.toUpperCase()}</h1>
-          <Link to='/payment'>
+          <Link to={'/event/'+event._id+ '/ordersummary'}>
             <button className="primary">Book Ticket</button>  
           </Link>
       </div>

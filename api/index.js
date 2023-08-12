@@ -209,6 +209,29 @@ app.get("/events", (req, res) => {
      });
  });
 
+ //! API endpoint to fetch event by id to ordersummary - Apsara
+ app.get("/event/:id/ordersummary", async (req, res) => {
+   const { id } = req.params;
+   try {
+      const event = await Event.findById(id);
+      res.json(event);
+   } catch (error) {
+      res.status(500).json({ error: "Failed to fetch event from MongoDB" });
+   }
+
+});
+
+//! API endpoint to fetch event by id to paymentsummary - Apsara
+app.get("/event/:id/ordersummary/paymentsummary", async (req, res) => {
+   const { id } = req.params;
+      try {
+      const event = await Event.findById(id);
+      res.json(event);
+   } catch (error) {
+      res.status(500).json({ error: "Failed to fetch event from MongoDB" });
+   }
+});
+ 
  
 app.listen(4000); //! the API listning point ---
 
