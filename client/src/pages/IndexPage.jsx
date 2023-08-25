@@ -33,9 +33,10 @@ import { BiLike } from "react-icons/bi";
                 : event
             )
           );
+          console.log("done", response)
         })
         .catch((error) => {
-          console.error("Error liking the event:", error);
+          console.error("Error liking ", error);
         });
     };
   
@@ -64,14 +65,15 @@ import { BiLike } from "react-icons/bi";
                 {event.image &&(
                   <img src={event.image} alt="" />
                 )}
-              </div>
-
-                <div className="absolute flex gap-4 bottom-[225px] right-6 md:bottom-[250px] md:right-3 lg:bottom-[230px] lg:right-3 sm:bottom-[250px] sm:right-3">
+                <div className="absolute flex gap-4 bottom-[240px] right-8 md:bottom-[20px] md:right-3 lg:bottom-[250px] lg:right-4 sm:bottom-[260px] sm:right-3">
                 <button onClick={() => handleLike(event._id)}>
                   <BiLike className="w-auto h-12 lg:h-10 sm:h-12 md:h-10 bg-white p-2 rounded-full shadow-md transition-all hover:text-primary" />
                 </button>
               
                 </div>
+              </div>
+
+                
 
                 <img src="../src/assets/paduru.png" alt="" className='rounded-tl-[0.75rem] rounded-tr-[0.75rem] rounded-br-[0] rounded-bl-[0] object-fill aspect-16:9'/> 
     {/* FIXME: This is a demo image after completing the create event function delete this */}
@@ -89,8 +91,10 @@ import { BiLike } from "react-icons/bi";
                 </div>
 
                 <div className="text-xs flex flex-col flex-wrap truncate-text">{event.description}</div>
-                <div className="text-sm text-primarydark font-bold my-2 ">Organized By: {event.organizedBy}</div>
-                
+                <div className="flex justify-between items-center my-2 mr-4">
+                  <div className="text-sm text-primarydark ">Organized By: <br /><span className="font-bold">{event.organizedBy}</span></div>
+                  <div className="text-sm text-primarydark ">Created By: <br/> <span className="font-semibold">{event.owner.toUpperCase()}</span></div>
+                </div>
                 <Link to={'/event/'+event._id} className="flex justify-center">
                   <button className="primary flex items-center gap-2">Book Ticket< BsArrowRightShort className="w-6 h-6" /></button>
                 </Link>

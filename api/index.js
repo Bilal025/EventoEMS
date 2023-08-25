@@ -9,6 +9,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 
+const Ticket = require("./models/Ticket");
+const TicketModel = require("./models/Ticket");
+
 const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(10); //! To encriypt the password text ---
@@ -101,7 +104,6 @@ app.post("/logout", (req, res) => {
 //!=======================  GET FROM DATABASE  ===========================================
 //!DEMO FOR DEVELOPMENT PURPOSE------------------------
 
-
 const eventSchema = new mongoose.Schema({
    owner: String,
    title: String,
@@ -118,11 +120,11 @@ const eventSchema = new mongoose.Schema({
 
 const Event = mongoose.model("Event", eventSchema);
 
-
 //! API endpoint to create an event (This is for checking purpose) -----------------------------------------
 app.post("/createEvent", async (req, res) => {
    try {
       const eventData = req.body;
+
       eventData.image = req.file ? req.file.path : "";
       const newEvent = new Event(eventData);
       await newEvent.save();
@@ -175,7 +177,7 @@ app.post("/event/:eventId", (req, res) => {
       });
 });
 
-//! Add a comment to an event (NOT IN USE) ------------------------------------------ 
+//! Add a comment to an event (NOT IN USE) ------------------------------------------
 app.post("/event/:eventId", (req, res) => {
    const eventId = req.params.eventId;
    const comment = req.body.comment;
@@ -200,17 +202,17 @@ app.post("/event/:eventId", (req, res) => {
 //! API endpoint to fetch event by id to calendar ------------------------------------------------------
 app.get("/events", (req, res) => {
    Event.find()
-     .then((events) => {
-       res.json(events);
-     })
-     .catch((error) => {
-       console.error("Error fetching events:", error);
-       res.status(500).json({ message: "Server error" });
-     });
- });
+      .then((events) => {
+         res.json(events);
+      })
+      .catch((error) => {
+         console.error("Error fetching events:", error);
+         res.status(500).json({ message: "Server error" });
+      });
+});
 
- //! API endpoint to fetch event by id to ordersummary - Apsara
- app.get("/event/:id/ordersummary", async (req, res) => {
+//! API endpoint to fetch event by id to ordersummary - Apsara
+app.get("/event/:id/ordersummary", async (req, res) => {
    const { id } = req.params;
    try {
       const event = await Event.findById(id);
@@ -218,21 +220,69 @@ app.get("/events", (req, res) => {
    } catch (error) {
       res.status(500).json({ error: "Failed to fetch event from MongoDB" });
    }
-
 });
 
 //! API endpoint to fetch event by id to paymentsummary - Apsara
 app.get("/event/:id/ordersummary/paymentsummary", async (req, res) => {
    const { id } = req.params;
-      try {
+   try {
       const event = await Event.findById(id);
       res.json(event);
    } catch (error) {
       res.status(500).json({ error: "Failed to fetch event from MongoDB" });
    }
 });
- 
- 
-app.listen(4000); //! the API listning point ---
 
+//! Api endpoint to post ticket data -------------------------------
+app.post(`/tickets`, async (req, res) => {
+   try {
+      const ticketDetails = req.body;
 
+      
+
+      const newTicket = new Ticket(ticketDetails);
+      await newTicket.save();
+
+      return res.status(201).json({ ticket: newTicket}); 
+   } catch (error) {
+      console.error("Error creating ticket:", error);
+      return res.status(500).json({ error: "Failed to create ticket" });
+   }
+});
+
+app.get('/tickets/:id', async (req, res) => {
+   try {
+     const tickets = await Ticket.find();
+     res.json(tickets);
+   } catch (error) {
+     console.error('Error fetching tickets:', error);
+     res.status(500).json({ error: 'Failed to fetch tickets' });
+   }
+ });
+
+ app.get('/tickets/user/:userId', (req, res) => {
+   const userId = req.params.userId;
+ 
+   // Fetch tickets using userId to filter
+   Ticket.find({ userid: userId })
+     .then(tickets => {
+       res.json(tickets);
+     })
+     .catch(error => {
+       console.error('Error fetching user tickets:', error);
+       res.status(500).json({ error: 'Failed to fetch user tickets' });
+     });
+ });
+
+ app.delete('/tickets/:id', async (req, res) => {
+   try {
+     const ticketId = req.params.id;
+     await Ticket.findByIdAndDelete(ticketId);
+     res.status(204).send(); 
+   } catch (error) {
+     console.error('Error deleting ticket:', error);
+     res.status(500).json({ error: 'Failed to delete ticket' });
+   }
+ });
+
+app.listen(4000); //! the API listning point -----

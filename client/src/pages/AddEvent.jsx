@@ -1,9 +1,12 @@
-import  { useState } from 'react';
+import  { useContext, useState } from 'react';
 import axios from 'axios';
+import { UserContext } from '../UserContext';
 
 export default function AddEvent() {
+  const {user} = useContext(UserContext);
   const [formData, setFormData] = useState({
-    owner: "",
+
+    owner: user? user.name : "",
     title: "",
     description: "",
     organizedBy: "",
@@ -41,6 +44,7 @@ export default function AddEvent() {
     <div className='flex flex-row'>
       <h1>Post an Event</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-5'>
+      
         <label>
           Title:
           <input
