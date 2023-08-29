@@ -1,20 +1,44 @@
-import React from 'react'
+/* eslint-disable no-unused-vars */
+import axios from 'axios';
+import  { useContext, useEffect, useState } from 'react'
+import { Link, Navigate, useParams } from 'react-router-dom';
+import {IoMdArrowBack} from 'react-icons/io'
+import { UserContext } from '../UserContext';
+import Qrcode from 'qrcode' //TODO:
 
 export default function PaymentSummary() {
     const {id} = useParams();
     const [event, setEvent] = useState(null);
+    const {user} = useContext(UserContext);
     const [details, setDetails] = useState({
       name: '',
       email: '',
       contactNo: '',
     });
-  
+//!Adding a default state for ticket-----------------------------
+    const defaultTicketState = {
+      userid: user ? user._id : '',
+      eventid: '',
+      ticketDetails: {
+        name: user ? user.name : '',
+        email: user ? user.email : '',
+        eventname: '',
+        eventdate: '',
+        eventtime: '',
+        ticketprice: '',
+        qr: '',
+      }
+    };
+//! add default state to the ticket details state
+    const [ticketDetails, setTicketDetails] = useState(defaultTicketState);
+
     const [payment, setPayment] = useState({
       nameOnCard: '',
       cardNumber: '',
       expiryDate: '',
       cvv: '',
     });
+    const [redirect, setRedirect] = useState('');
   
     useEffect(()=>{
       if(!id){
@@ -22,16 +46,39 @@ export default function PaymentSummary() {
       }
       axios.get(`/event/${id}/ordersummary/paymentsummary`).then(response => {
         setEvent(response.data)
+
+        setTicketDetails(prevTicketDetails => ({
+          ...prevTicketDetails,
+          eventid: response.data._id,
+       //!capturing event details from backend for ticket----------------------
+          ticketDetails: {
+            ...prevTicketDetails.ticketDetails,
+            eventname: response.data.title,
+            eventdate: response.data.eventDate.split("T")[0],
+            eventtime: response.data.eventTime,
+            ticketprice: response.data.ticketPrice,
+          }
+        }));
       }).catch((error) => {
         console.error("Error fetching events:", error);
       });
-    }, [id])
+    }, [id]);
+//! Getting user details using useeffect and setting to new ticket details with previous details
+    useEffect(() => {
+      setTicketDetails(prevTicketDetails => ({
+        ...prevTicketDetails,
+        userid: user ? user._id : '',
+        ticketDetails: {
+          ...prevTicketDetails.ticketDetails,
+          name: user ? user.name : '',
+          email: user ? user.email : '',
+        }
+      }));
+    }, [user]);
     
-  
+    
     if (!event) return '';
-  
-    
-  
+
     const handleChangeDetails = (e) => {
       const { name, value } = e.target;
       setDetails((prevDetails) => ({
@@ -47,7 +94,48 @@ export default function PaymentSummary() {
         [name]: value,
       }));
     };
-  
+//! creating a ticket ------------------------------
+    const createTicket = async (e) => {
+      e.preventDefault();
+//!adding a ticket qr code to booking ----------------------
+      try {
+        const qrCode = await generateQRCode(
+          ticketDetails.ticketDetails.eventname,
+          ticketDetails.ticketDetails.name
+        );
+//!updating the ticket details qr with prevoius details ------------------
+        const updatedTicketDetails = {
+          ...ticketDetails,
+          ticketDetails: {
+            ...ticketDetails.ticketDetails,
+            qr: qrCode,
+          }
+        };
+//!posting the details to backend ----------------------------
+        const response = await axios.post(`/tickets`, updatedTicketDetails);
+        alert("Ticket Created");
+        setRedirect(true)
+        console.log('Success creating ticket', updatedTicketDetails)
+      } catch (error) {
+        console.error('Error creating ticket:', error);
+      }
+
+    }
+//! Helper function to generate QR code ------------------------------
+    async function generateQRCode(name, eventName) {
+      try {
+        const qrCodeData = await Qrcode.toDataURL(
+            `Event Name: ${name} \n Name: ${eventName}`
+        );
+        return qrCodeData;
+      } catch (error) {
+        console.error("Error generating QR code:", error);
+        return null;
+      }
+    }
+    if (redirect){
+      return <Navigate to={'/wallet'} />
+    }
     return (
       <>
       <div>
@@ -159,24 +247,28 @@ export default function PaymentSummary() {
             </div>
             <div className="float-right">
             <p className="text-sm font-semibold pb-2 pt-8">Total : LKR. {event.ticketPrice}</p>
-            <button type="button" 
-            className="
-            text-white  
-            bg-blue-700 
-            hover:bg-blue-800 
-            focus:ring-4 
-            focus:ring-blue-300 
-            font-medium 
-            text-sm 
-            px-16 
-            py-3.5  
-            mb-2 
-            dark:bg-blue-600 
-            dark:hover:bg-blue-700 
-            focus:outline-none 
-            dark:focus:ring-blue-800 
-            rounded-sm">
-              Make Payment</button>
+            <Link to={'/'}>
+              <button type="button" 
+                onClick = {createTicket}
+                className="
+                
+                text-white  
+                bg-blue-700 
+                hover:bg-blue-800 
+                focus:ring-4 
+                focus:ring-blue-300 
+                font-medium 
+                text-sm 
+                px-16 
+                py-3.5  
+                mb-2 
+                dark:bg-blue-600 
+                dark:hover:bg-blue-700 
+                focus:outline-none 
+                dark:focus:ring-blue-800 
+                rounded-sm">
+                Make Payment</button>
+              </Link>
             </div>
             
           </div>
@@ -184,7 +276,7 @@ export default function PaymentSummary() {
       <div className="float-right bg-blue-100 w-1/4 p-5 mt-8 mr-12">
           <h2 className="text-xl font-bold mb-8">Order Summary</h2>
           <div className="space-y-1">
-            {/* Replace these values with actual order details */}
+            
             <div>
                <p className="float-right">1 Ticket</p>
             </div>
