@@ -32,13 +32,13 @@ function App() {
         <Route path='/event/:id' element= {<EventPage/>} />
         <Route path='/calendar' element={<CalendarView />} />
         <Route path='/wallet' element={<TicketPage />}/>
+        <Route path='/event/:id/ordersummary' element = {<OrderSummary />} />
       </Route>
 
       <Route path='/register' element={<RegisterPage />}/>
       <Route path='/login' element={<LoginPage />}/>
       <Route path='/forgotpassword' element = {<ForgotPassword/>} />
       <Route path='/resetpassword' element = {<ResetPassword/>} />
-      <Route path='/event/:id/ordersummary' element = {<OrderSummary />} />
       <Route path='/event/:id/ordersummary/paymentsummary' element = {<PaymentSummary />} />
       
     
