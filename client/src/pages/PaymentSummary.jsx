@@ -96,46 +96,46 @@ export default function PaymentSummary() {
     };
 //! creating a ticket ------------------------------
     const createTicket = async (e) => {
-      e.preventDefault();
+  e.preventDefault();
 //!adding a ticket qr code to booking ----------------------
-      try {
-        const qrCode = await generateQRCode(
-          ticketDetails.ticketDetails.eventname,
-          ticketDetails.ticketDetails.name
-        );
+  try {
+    const qrCode = await generateQRCode(
+      ticketDetails.ticketDetails.eventname,
+      ticketDetails.ticketDetails.name
+    );
 //!updating the ticket details qr with prevoius details ------------------
-        const updatedTicketDetails = {
-          ...ticketDetails,
-          ticketDetails: {
-            ...ticketDetails.ticketDetails,
-            qr: qrCode,
-          }
-        };
+    const updatedTicketDetails = {
+      ...ticketDetails,
+      ticketDetails: {
+        ...ticketDetails.ticketDetails,
+        qr: qrCode,
+      }
+    };
 //!posting the details to backend ----------------------------
-        const response = await axios.post(`/tickets`, updatedTicketDetails);
-        alert("Ticket Created");
-        setRedirect(true)
-        console.log('Success creating ticket', updatedTicketDetails)
-      } catch (error) {
-        console.error('Error creating ticket:', error);
-      }
+    const response = await axios.post(`/tickets`, updatedTicketDetails);
+    alert("Ticket Created");
+    setRedirect(true)
+    console.log('Success creating ticket', updatedTicketDetails)
+  } catch (error) {
+    console.error('Error creating ticket:', error);
+  }
 
-    }
+}
 //! Helper function to generate QR code ------------------------------
-    async function generateQRCode(name, eventName) {
-      try {
-        const qrCodeData = await Qrcode.toDataURL(
-            `Event Name: ${name} \n Name: ${eventName}`
-        );
-        return qrCodeData;
-      } catch (error) {
-        console.error("Error generating QR code:", error);
-        return null;
-      }
-    }
-    if (redirect){
-      return <Navigate to={'/wallet'} />
-    }
+async function generateQRCode(name, eventName) {
+  try {
+    const qrCodeData = await Qrcode.toDataURL(
+        `Event Name: ${name} \n Name: ${eventName}`
+    );
+    return qrCodeData;
+  } catch (error) {
+    console.error("Error generating QR code:", error);
+    return null;
+  }
+}
+if (redirect){
+  return <Navigate to={'/wallet'} />
+}
     return (
       <>
       <div>
