@@ -29,19 +29,19 @@ Introducing our Event Management System, a solution developed as part of our fin
 
 **Instalaltion**
 1. Clone the repository to your local machine.
-2. Navigate to the project directory. use two terminal
-    **Cd Client** - For Frontend
-    **Cd api** - For Backend
+2. Navigate to the project directory. use two terminal <br>
+    **Cd Client** - For Frontend <br>
+    **Cd api** - For Backend <br>
 3. Install server dependenciesfor both frontend and backend.
-4. Create a .env file in the root directory with the following content, and replace placeholders with your own values.
+4. Create a .env file in the root directory with the following content, and replace placeholders with your own values. <br>
      MONGODB_URI=mongodb://localhost/your-database-name
-5. Start the server.
-     **ems/api:** nodemon start
+5. Start the server.<br>
+     **ems/api:** nodemon start<br>
      if the command is not working use **PowerShell -ExecutionPolicy Bypass nodemon** this command.
-7. Start the Client:
+7. Start the Client:<br>
       **ems/client:** npm run dev
 
-**The application should now be running. You can access it at http://localhost:5173**
+**The application should now be running. You can access it at http://localhost:5173**<br>
 **The Server is running on http://localhost:4000**
 
 <h1>Thank You</h1>
