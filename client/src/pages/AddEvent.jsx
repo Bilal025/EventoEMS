@@ -8,6 +8,7 @@ export default function AddEvent() {
 
     owner: user? user.name : "",
     title: "",
+    optional:"",
     description: "",
     organizedBy: "",
     eventDate: "",
@@ -51,6 +52,15 @@ export default function AddEvent() {
             type="text"
             name="title"
             value={formData.title}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Optional:
+          <input
+            type="text"
+            name="optional"
+            value={formData.optional}
             onChange={handleChange}
           />
         </label>

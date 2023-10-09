@@ -10,7 +10,6 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 
 const Ticket = require("./models/Ticket");
-const TicketModel = require("./models/Ticket");
 
 const app = express();
 
@@ -108,6 +107,7 @@ const eventSchema = new mongoose.Schema({
    owner: String,
    title: String,
    description: String,
+   optional: String,
    organizedBy: String,
    eventDate: Date,
    eventTime: String,
@@ -238,51 +238,49 @@ app.post(`/tickets`, async (req, res) => {
    try {
       const ticketDetails = req.body;
 
-      
-
       const newTicket = new Ticket(ticketDetails);
       await newTicket.save();
 
-      return res.status(201).json({ ticket: newTicket}); 
+      return res.status(201).json({ ticket: newTicket });
    } catch (error) {
       console.error("Error creating ticket:", error);
       return res.status(500).json({ error: "Failed to create ticket" });
    }
 });
 
-app.get('/tickets/:id', async (req, res) => {
+app.get("/tickets/:id", async (req, res) => {
    try {
-     const tickets = await Ticket.find();
-     res.json(tickets);
+      const tickets = await Ticket.find();
+      res.json(tickets);
    } catch (error) {
-     console.error('Error fetching tickets:', error);
-     res.status(500).json({ error: 'Failed to fetch tickets' });
+      console.error("Error fetching tickets:", error);
+      res.status(500).json({ error: "Failed to fetch tickets" });
    }
- });
+});
 
- app.get('/tickets/user/:userId', (req, res) => {
+app.get("/tickets/user/:userId", (req, res) => {
    const userId = req.params.userId;
- 
+
    // Fetch tickets using userId to filter
    Ticket.find({ userid: userId })
-     .then(tickets => {
-       res.json(tickets);
-     })
-     .catch(error => {
-       console.error('Error fetching user tickets:', error);
-       res.status(500).json({ error: 'Failed to fetch user tickets' });
-     });
- });
+      .then((tickets) => {
+         res.json(tickets);
+      })
+      .catch((error) => {
+         console.error("Error fetching user tickets:", error);
+         res.status(500).json({ error: "Failed to fetch user tickets" });
+      });
+});
 
- app.delete('/tickets/:id', async (req, res) => {
+app.delete("/tickets/:id", async (req, res) => {
    try {
-     const ticketId = req.params.id;
-     await Ticket.findByIdAndDelete(ticketId);
-     res.status(204).send(); 
+      const ticketId = req.params.id;
+      await Ticket.findByIdAndDelete(ticketId);
+      res.status(204).send();
    } catch (error) {
-     console.error('Error deleting ticket:', error);
-     res.status(500).json({ error: 'Failed to delete ticket' });
+      console.error("Error deleting ticket:", error);
+      res.status(500).json({ error: "Failed to delete ticket" });
    }
- });
+});
 
 app.listen(4000); //! the API listning point -----
