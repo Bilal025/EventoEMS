@@ -167,7 +167,7 @@ if (redirect){
           </button>
           </Link>
           </div>
-      <div className="ml-12 bg-gray-100 shadow-lg mt-8 p-16 w-3/5 gap-5 float-left">
+      <div className="ml-12 bg-gray-100 shadow-lg mt-8 p-16 w-3/5 float-left">
           {/* Your Details */}
           <div className="mt-8 space-y-4">
             <h2 className="text-xl font-bold mb-4">Your Details</h2>
@@ -194,7 +194,7 @@ if (redirect){
               value={details.contactNo}
               onChange={handleChangeDetails}
               placeholder="Contact No"
-              className="input-field ml-10 w-80 h-10 bg-gray-50 border border-gray-30  rounded-sm p-2.5"
+              className="input-field ml-10 w-80 h-10 bg-gray-50 border border-gray-30 rounded-sm p-2.5"
             />
             </div>
           </div>
@@ -210,7 +210,7 @@ if (redirect){
             <input
               type="text"
               name="nameOnCard"
-              value={payment.nameOnCard}
+              value= "A.B.S.L. Perera"                       
               onChange={handleChangePayment}
               placeholder="Name on Card"
               className="input-field w-80 ml-10 h-10 bg-gray-50 border border-gray-30  rounded-sm p-2.5"
@@ -218,7 +218,7 @@ if (redirect){
             <input
               type="text"
               name="cardNumber"
-              value={payment.cardNumber}
+              value="5648 3212 7802"
               onChange={handleChangePayment}
               placeholder="Card Number"
               className="input-field w-80 ml-3 h-10 bg-gray-50 border border-gray-30 rounded-sm p-2.5"
@@ -228,7 +228,7 @@ if (redirect){
               <input
                 type="text"
                 name="expiryDate"
-                value={payment.expiryDate}
+                value="12/25"
                 onChange={handleChangePayment}
                 placeholder="Expiry Date (MM/YY)"
                 className="input-field w-60 ml-10 h-10 bg-gray-50 border border-gray-30  rounded-sm p-2.5"
@@ -239,7 +239,7 @@ if (redirect){
               <input
                 type="text"
                 name="cvv"
-                value={payment.cvv}
+                value="532"
                 onChange={handleChangePayment}
                 placeholder="CVV"
                 className="input-field w-16 h-10 bg-gray-50 border border-gray-30  rounded-sm p-3"
@@ -250,23 +250,7 @@ if (redirect){
             <Link to={'/'}>
               <button type="button" 
                 onClick = {createTicket}
-                className="
-                
-                text-white  
-                bg-blue-700 
-                hover:bg-blue-800 
-                focus:ring-4 
-                focus:ring-blue-300 
-                font-medium 
-                text-sm 
-                px-16 
-                py-3.5  
-                mb-2 
-                dark:bg-blue-600 
-                dark:hover:bg-blue-700 
-                focus:outline-none 
-                dark:focus:ring-blue-800 
-                rounded-sm">
+                className="primary">
                 Make Payment</button>
               </Link>
             </div>

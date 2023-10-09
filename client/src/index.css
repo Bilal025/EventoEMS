@@ -22,6 +22,18 @@ input.input-et{
   @apply text-base bg-inherit text-black outline-none w-full;
 }
 
+.custom-list {
+  list-style-type: none;
+  padding-left: 2.0em; 
+}
+
+.custom-list li:before {
+  content: "•"; 
+  font-size: 17px;
+  position: absolute;
+  margin-left: -1.5em; 
+}
+
 .truncate-text {
   display: -webkit-box;
   -webkit-line-clamp:3 ; 
