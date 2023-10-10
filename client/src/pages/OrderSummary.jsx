@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 export default function OrderSummary() {
     const {id} = useParams();
     const [event, setEvent] = useState(null);
+    const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
   
     useEffect(()=>{
       if(!id){
@@ -18,6 +19,10 @@ export default function OrderSummary() {
       });
     }, [id])
     
+    //! Handle checkbox change
+    const handleCheckboxChange = (e) => {
+      setIsCheckboxChecked(e.target.checked)
+    }
   
     if (!event) return '';
     return (
@@ -65,7 +70,7 @@ export default function OrderSummary() {
                             <br/>
   
                               <div>
-                              <ul>
+                              <ul className="custom-list">
                                   <li> Refunds will be provided for ticket cancellations made up to 14 days before the event date. After this period, no refunds will be issued. To request a refund, please contact our customer support team. </li>
   
                                   <li> Tickets will be delivered to your registered email address as e-tickets. You can print the e-ticket or show it on your mobile device for entry to the event. </li>
@@ -110,7 +115,7 @@ export default function OrderSummary() {
                           <div className='text-right mt-5 mb-6 pr-5'>LKR. {event.ticketPrice}</div>
                         </div>
                         <div className='flex justify-between'>
-                          <input className='h-5 ' type='checkbox'/>
+                          <input className='h-5 ' type='checkbox' onChange={handleCheckboxChange}/>
                           <div className='px-2 text-sm'>
                             I have verified the Event name, date and time before proceeding to payment. I accept terms and conditions. 
                           </div>
@@ -119,18 +124,9 @@ export default function OrderSummary() {
                         <div className='mb-5'>
                                   <Link to={'/event/'+event._id+ '/ordersummary'+'/paymentsummary'}>
                                     <button 
-                                    className='
-                                    mt-5
-                                    p-3 
-                                    ml-2
-                                    w-36
-                                    text-gray-100
-                                    items-center 
-                                    bg-blue-700
-                                    gap-2
-                                    rounded-md'
-                                    // eslint-disable-next-line react/no-unknown-property
-                                    variant="contained" 
+                                    className={`mt-5 p-3 ml-2 w-36 text-gray-100 items-center ${
+                                      isCheckboxChecked ? 'bg-blue-700' : 'bg-gray-300'} gap-2 rounded-md`}
+                                    disabled={!isCheckboxChecked}
                                     >
                                       Proceed
                                     </button>
