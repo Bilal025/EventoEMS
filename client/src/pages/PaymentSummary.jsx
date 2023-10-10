@@ -251,6 +251,9 @@ if (redirect){
               <button type="button" 
                 onClick = {createTicket}
                 className="primary">
+                className="
+                primary "
+               >
                 Make Payment</button>
               </Link>
             </div>

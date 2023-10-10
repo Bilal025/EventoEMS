@@ -68,6 +68,7 @@ if (!event) return '';
       </div>
       <div className="mx-2 mt-5 text-md md:text-xl font-bold text-primarydark">
         Organized By {event.organizedBy}
+        
       </div>
       <div className="mx-2 mt-5">
         <h1 className="text-md md:text-xl font-extrabold">When and Where </h1>
