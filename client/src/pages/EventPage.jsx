@@ -47,7 +47,7 @@ if (!event) return '';
     <div className="flex flex-col mx-5 xl:mx-32 md:mx-10 mt-5 flex-grow">
      <div >
         {event.image &&(
-          <img src={event.image} alt="" />
+          <img src={`${event.image}`} alt="" height="500px" width="1440px" className='rounded object-fill aspect-16:9'/>
         )}
       </div>
 
